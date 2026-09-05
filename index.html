@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>سجل الحضور والغياب</title>
+
+<!-- ربط ملف الـ PWA manifest -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2563eb">
+
+<!-- أيقونات التطبيق -->
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
 <style>
   :root{
     --primary:#2563eb;
@@ -422,6 +430,15 @@ document.getElementById('newStudentInput').addEventListener('keypress', e => {
 
 // ---------- البداية ----------
 renderClasses();
+
+// ---------- تسجيل Service Worker (لتشغيل التطبيق بدون إنترنت) ----------
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js')
+      .then(() => console.log('Service Worker مسجل بنجاح'))
+      .catch(err => console.log('فشل تسجيل Service Worker:', err));
+  });
+}
 </script>
 </body>
 </html>
